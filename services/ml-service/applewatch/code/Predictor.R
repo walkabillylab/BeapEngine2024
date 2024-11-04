@@ -1,18 +1,31 @@
 #====================== Apple Watch Data Predictor with Tidymodels ======================
-# Programmed by Arastoo Bozorgi
+
+# Programmed by Arastoo Bozorgi & Glenn Tanjoh
+# Email: glenntanjoh@gmail.com
 # Email: ab1502@mun.ca
 #=======================================================================
 
-# Clear the workspace
+# Clears the environment to start fresh
 rm(list = ls())
 
 #======================== Load Required Libraries ======================
+
+# Installs and loads required libraries with 'pacman' for better dependency management
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   imputeTS, lubridate, data.table, dplyr, tidymodels, pryr, ranger, caret, doParallel, zoo
 )
 
+
+#======================= Set Up Parallel Backend ======================
+# Detects the number of available cores and sets up a parallel backend
+num_cores <- detectCores() - 1  # Leave one core free to keep system responsive
+cl <- makeCluster(num_cores)
+registerDoParallel(cl)
+
 #======================= Set Time Zone & Arguments =====================
+
+# Sets timezone for all operations and checks argument requirements
 Sys.setenv(TZ = "America/St_Johns")
 
 args <- c(
@@ -23,6 +36,7 @@ args <- c(
   "randomForest"
 )
 
+# Verifies that required arguments are provided
 if (length(args) != 5) {
   stop("Five arguments must be supplied: main path, model path, training file, data file, model type.", call. = FALSE)
 }
@@ -34,6 +48,8 @@ file_name <- args[4]
 model <- args[5]
 
 #===================== Utility Function for Correlation ===========================
+
+# Computes Pearson correlation, returning NA if there's zero variance in either column
 correlation <- function(x) {
   if (sd(x[, 1]) == 0 || sd(x[, 2]) == 0) {
     return(NA)  # Return NA if standard deviation is zero to avoid divide-by-zero error
@@ -43,177 +59,104 @@ correlation <- function(x) {
 }
 
 #===================== Load and Prepare Data ==========================
-applewatch_data <- fread(file_name, data.table = F)
 
-# Check and add missing columns if required
+# Loads Apple Watch data, checks for required columns, adds them if missing
+applewatch_data <- fread(file_name)
+
+# Quickly adds missing columns in-place if required, filling with NA
 required_columns <- c("Heart", "Calories", "Steps", "Distance")
-missing_columns <- setdiff(required_columns, colnames(applewatch_data))
+missing_columns <- setdiff(required_columns, names(applewatch_data))
 if (length(missing_columns) > 0) {
-  warning(paste("Missing columns:", paste(missing_columns, collapse = ", ")))
-  applewatch_data[missing_columns] <- NA
+  applewatch_data[, (missing_columns) := NA]
 }
 
-# Impute missing values using linear interpolation
-applewatch_data <- applewatch_data %>%
-  mutate(
-    Heart = na_interpolation(Heart, option = "linear"),
-    Calories = if ("Calories" %in% colnames(applewatch_data)) na_interpolation(Calories, option = "linear") else NA,
-    Steps = na_interpolation(Steps, option = "linear"),
-    Distance = na_interpolation(Distance, option = "linear"),
-    Applewatch.Heart_LE = Heart,
-    Applewatch.Steps_LE = Steps,
-    Applewatch.Distance_LE = Distance,
-    Applewatch.Calories_LE = if ("Calories" %in% colnames(applewatch_data)) Calories else NA
-  )
+# Applies interpolation directly to specified columns with imputeTS in-place
+cat("Applying linear interpolation on specified columns...\n")
+applewatch_data[, Heart := imputeTS::na_interpolation(Heart, option = "linear")]
+if ("Calories" %in% names(applewatch_data)) {
+  applewatch_data[, Calories := imputeTS::na_interpolation(Calories, option = "linear")]
+}
+applewatch_data[, Steps := imputeTS::na_interpolation(Steps, option = "linear")]
+applewatch_data[, Distance := imputeTS::na_interpolation(Distance, option = "linear")]
 
-# Calculate additional engineered features
+# Generates new engineered features for model training
 applewatch_data <- applewatch_data %>%
   mutate(
-    EntropyApplewatchHeartPerDay_LE = -sum(table(Applewatch.Heart_LE) / length(Applewatch.Heart_LE) * 
-                                             log2(table(Applewatch.Heart_LE) / length(Applewatch.Heart_LE))),
-    EntropyApplewatchStepsPerDay_LE = -sum(table(Applewatch.Steps_LE) / length(Applewatch.Steps_LE) * 
-                                             log2(table(Applewatch.Steps_LE) / length(Applewatch.Steps_LE))),
-    RestingApplewatchHeartrate_LE = quantile(Applewatch.Heart_LE, 0.05, na.rm = TRUE),
-    NormalizedApplewatchHeartrate_LE = Applewatch.Heart_LE - RestingApplewatchHeartrate_LE,
+    EntropyApplewatchHeartPerDay_LE = -sum(table(Heart) / length(Heart) * log2(table(Heart) / length(Heart))),
+    EntropyApplewatchStepsPerDay_LE = -sum(table(Steps) / length(Steps) * log2(table(Steps) / length(Steps))),
+    RestingApplewatchHeartrate_LE = quantile(Heart, 0.05, na.rm = TRUE),
+    NormalizedApplewatchHeartrate_LE = Heart - RestingApplewatchHeartrate_LE,
     ApplewatchIntensity_LE = NormalizedApplewatchHeartrate_LE / (220 - 40 - RestingApplewatchHeartrate_LE),
     SDNormalizedApplewatchHR_LE = rollapply(NormalizedApplewatchHeartrate_LE, width = 10, FUN = sd, by.column = FALSE, fill = NA),
-    ApplewatchStepsXDistance_LE = Applewatch.Steps_LE * Applewatch.Distance_LE
+    ApplewatchStepsXDistance_LE = Steps * Distance
   )
 
-# Ensure the columns exist before applying rollapply()
-if (!all(c("Applewatch.Heart_LE", "Applewatch.Steps_LE") %in% colnames(applewatch_data))) {
-  stop("Required columns 'Applewatch.Heart_LE' or 'Applewatch.Steps_LE' are missing.")
-}
+#====================== Feature Engineering ============================
+# Efficient calculation of entropy, resting heart rate, normalized heart rate, and others in-place
+applewatch_data[, EntropyApplewatchHeartPerDay_LE := -sum(prop.table(table(Heart)) * log2(prop.table(table(Heart))))] 
+applewatch_data[, EntropyApplewatchStepsPerDay_LE := -sum(prop.table(table(Steps)) * log2(prop.table(table(Steps))))]
 
-# Parse 'DateTime' to extract 'day', handling parsing issues
-applewatch_data$day <- tryCatch(
-  day(lubridate::ymd_hms(applewatch_data$DateTime)),
-  error = function(e) {
-    warning("Error parsing DateTime; setting to NA.")
-    return(NA)
-  }
-)
+# Generate additional features: rolling means, lags, and rate of change
+applewatch_data[, Heart_RollMean := zoo::rollmean(Heart, k = 5, fill = NA, align = "right")]
+applewatch_data[, Steps_RollMean := zoo::rollmean(Steps, k = 5, fill = NA, align = "right")]
+applewatch_data[, Heart_Lag1 := shift(Heart, type = "lag")]
+applewatch_data[, Steps_Lag1 := shift(Steps, type = "lag")]
+applewatch_data[, Heart_RateOfChange := c(NA, diff(Heart))]
 
-# Replace NAs in 'day' with a placeholder
-applewatch_data$day[is.na(applewatch_data$day)] <- 1
-
-# Apply rollapply to calculate correlation
-applewatch_data$CorrelationApplewatchHeartrateSteps_LE <- rollapply(
-  applewatch_data[, c("Applewatch.Heart_LE", "Applewatch.Steps_LE")], 
-  width = 10, 
-  FUN = function(x) correlation(x), 
-  by.column = FALSE, 
-  fill = NA
-)
-
-# Simplify imputation for CorrelationApplewatchHeartrateSteps_LE
-applewatch_data$CorrelationApplewatchHeartrateSteps_LE <- na.fill(
-  applewatch_data$CorrelationApplewatchHeartrateSteps_LE, fill = 0
-)
-
-# Reduce dataset size for testing (use 10% of data)
-set.seed(123)
-applewatch_data_sample <- sample_frac(applewatch_data, 0.1)
-
-# Add other features
-applewatch_data_sample <- applewatch_data_sample %>%
-  mutate(
-    ApplewatchStepsXDistance_LE = Applewatch.Steps_LE * Applewatch.Distance_LE,
-    activity_trimmed = as.factor(sample(c("Low", "Medium", "High"), nrow(applewatch_data_sample), replace = TRUE))
-  )
-
-#===================== Prepare Data with Tidymodels ===================
-# Convert to tibble
-applewatch_data_sample <- as_tibble(applewatch_data_sample)
-
-# Remove zero-variance columns from data before creating the recipe
-zero_variance_cols <- nearZeroVar(applewatch_data_sample, saveMetrics = TRUE) %>%
-  filter(zeroVar) %>%
-  rownames()
+# Computes resting heart rate using quantile, then normalizes and calculates intensity measures
+resting_hr <- quantile(applewatch_data$Heart, 0.05, na.rm = TRUE)
+applewatch_data[, RestingApplewatchHeartrate_LE := resting_hr]
+applewatch_data[, NormalizedApplewatchHeartrate_LE := Heart - resting_hr]
+applewatch_data[, ApplewatchIntensity_LE := NormalizedApplewatchHeartrate_LE / (220 - 40 - resting_hr)]
 
 
-# Ensure required columns are present after feature engineering
-required_features <- c(
-  "EntropyApplewatchHeartPerDay_LE", "EntropyApplewatchStepsPerDay_LE", 
-  "RestingApplewatchHeartrate_LE", "Applewatch.Steps_LE", "Applewatch.Heart_LE",
-  "Applewatch.Calories_LE", "Applewatch.Distance_LE"
-)
+# Computes rolling standard deviation for heart rate in-place with zoo's rollapply
+applewatch_data[, SDNormalizedApplewatchHR_LE := zoo::rollapply(NormalizedApplewatchHeartrate_LE, width = 10, FUN = sd, fill = NA, align = "right")]
+applewatch_data[, ApplewatchStepsXDistance_LE := Steps * Distance]
 
-# Exclude required features from zero-variance removal
-zero_variance_cols <- setdiff(zero_variance_cols, required_features)
+#==================== Activity Level Labeling ==========================
+# Creates activity_trimmed column based on Steps thresholds
+applewatch_data[, activity_trimmed := fifelse(Steps < 60, "Sedentary",
+                                              fifelse(Steps >= 60 & Steps < 100, "Moderate",
+                                                      fifelse(Steps >= 100, "Vigorous", NA_character_)))]
 
-# Check for columns with missing values before processing
-missing_cols_before <- colnames(applewatch_data_sample)[colSums(is.na(applewatch_data_sample)) > 0]
-print(paste("Columns with missing values before processing:", paste(missing_cols_before, collapse = ", ")))
+# Drops rows with NA in activity_trimmed
+applewatch_data <- applewatch_data[!is.na(activity_trimmed)]
+applewatch_data[, activity_trimmed := as.factor(activity_trimmed)]
 
+# Defines a Tidymodels recipe to preprocess data before model training
+applewatch_recipe <- recipe(activity_trimmed ~ ., data = applewatch_data) %>%
+  step_zv(all_nominal_predictors()) %>%  # Remove zero-variance columns
+  step_naomit(all_predictors()) %>%      # Remove rows with NAs in predictors
+  step_normalize(all_numeric_predictors())  # Normalize numeric predictors
 
-
-# Check if required features are present
-missing_features <- setdiff(required_features, colnames(applewatch_data_sample))
-if (length(missing_features) > 0) {
-  stop(paste("The following required features are missing:", paste(missing_features, collapse = ", ")))
-}
-
-# Specify a simpler recipe for data preprocessing
-available_predictors <- colnames(applewatch_data_sample)
-applewatch_recipe <- recipe(activity_trimmed ~ ., data = applewatch_data_sample) %>%
-  update_role(activity_trimmed, new_role = "outcome") %>%
-  update_role(all_of(intersect(available_predictors, c(
-    "Applewatch.Steps_LE", "Applewatch.Heart_LE", "Applewatch.Calories_LE",
-    "Applewatch.Distance_LE", "EntropyApplewatchHeartPerDay_LE",
-    "EntropyApplewatchStepsPerDay_LE", "RestingApplewatchHeartrate_LE",
-    "CorrelationApplewatchHeartrateSteps_LE", "NormalizedApplewatchHeartrate_LE",
-    "ApplewatchIntensity_LE", "SDNormalizedApplewatchHR_LE",
-    "ApplewatchStepsXDistance_LE", "day"
-  ))), new_role = "predictor") %>%
-  step_rm(all_of(zero_variance_cols)) %>%  # Step 1: Remove zero-variance columns
-  step_impute_median(all_numeric_predictors(), -all_outcomes()) %>%  # Step 2: Impute missing values
-  step_naomit(all_predictors(), -all_outcomes()) %>%  # Step 3: Remove rows with remaining NAs
-  step_normalize(all_numeric_predictors())  # Step 4: Normalize predictors
-
-# Prepare the recipe
-prepared_recipe <- prep(applewatch_recipe, training = applewatch_data_sample, verbose = TRUE)
-print(prepared_recipe)  # Debugging check
-applewatch_data_prepared <- bake(prepared_recipe, new_data = applewatch_data_sample)
-
-# Check for missing values after baking
-missing_cols_after <- colnames(applewatch_data_prepared)[colSums(is.na(applewatch_data_prepared)) > 0]
-if (length(missing_cols_after) > 0) {
-  stop(paste("There are still missing values in the prepared data for columns:", paste(missing_cols_after, collapse = ", ")))
-} else {
-  print("No missing values in the prepared data.")
-}
-
-# Save preprocessed data for reuse
-write.csv(applewatch_data_prepared, paste0(main_path, "output/preprocessed_data.csv"), row.names = FALSE)
+# Prepares the recipe for processing and applies to data
+prepared_recipe <- prep(applewatch_recipe, training = applewatch_data, verbose = TRUE)
+applewatch_data_prepared <- bake(prepared_recipe, new_data = NULL)
 
 #====================== Train Model with Tidymodels ====================
-# Define a basic Random Forest model
-rf_model <- rand_forest(mode = "classification", mtry = 3, trees = 20) %>%
-  set_engine("ranger")
 
-# Create a workflow
+# Sets up a Random Forest model using Tidymodels' workflow
+rf_model <- rand_forest(mode = "classification", mtry = 3, trees = 100) %>%
+  set_engine("ranger", num.threads = num_cores) # Set number of threads to the number of cores
+
+# Creates a Tidymodels workflow with the model and recipe
 rf_workflow <- workflow() %>%
   add_model(rf_model) %>%
   add_recipe(applewatch_recipe)
 
-# Perform a simple train-test split to validate model
+# Splits data into train-test sets, trains the model, and makes predictions
 set.seed(123)
 data_split <- initial_split(applewatch_data_prepared, prop = 0.8)
 train_data <- training(data_split)
 test_data <- testing(data_split)
 
-#============ Parallel Processing ===============
-library(doParallel)
-cl <- makeCluster(detectCores() - 1)  # Use all but one core
-registerDoParallel(cl)
-
 # Fit the model on training data
 rf_fit <- fit(rf_workflow, data = train_data)
 
-stopCluster(cl)  # Stop the cluster after training
-
 #================= Measure Execution Time and Memory ===================
+
+# Measures and prints execution time and memory usage for predictions
 start_time <- Sys.time()
 start_mem <- pryr::mem_used()
 
@@ -234,37 +177,15 @@ memory_used <- end_mem - start_mem
 print(paste("Execution time for predictions:", execution_time))
 print(paste("Memory used for predictions:", memory_used, "bytes"))
 
-# Reorder columns to match the original output
-output_columns <- c(
-  'day', 'Applewatch.Steps_LE', 'Applewatch.Heart_LE', 'Applewatch.Calories_LE',
-  'Applewatch.Distance_LE', 'EntropyApplewatchHeartPerDay_LE', 
-  'EntropyApplewatchStepsPerDay_LE', 'RestingApplewatchHeartrate_LE',
-  'CorrelationApplewatchHeartrateSteps_LE', 'NormalizedApplewatchHeartrate_LE',
-  'ApplewatchIntensity_LE', 'SDNormalizedApplewatchHR_LE', 
-  'ApplewatchStepsXDistance_LE', 'activity_trimmed'
-)
-
-# Ensure all columns are present in the predictions
-predictions <- predictions %>% select(all_of(output_columns))
-
 #======================= Save Model and Predictions ============================
 output_file <- paste0(main_path, "output/applewatch_data_predicted_TinyModels.csv")
-if (file.access(dirname(output_file), 2) == 0) {
-  write.csv(predictions, output_file, row.names = FALSE)
-} else {
-  warning("Permission denied: Unable to save predictions. Check the output directory permissions.")
-}
-
-# Extract the fitted model from the workflow
-fitted_rf_model <- extract_fit_parsnip(rf_fit)
+write.csv(predictions, output_file, row.names = FALSE)
 
 # Save the fitted model using saveRDS
 model_file <- paste0(model_path, "Tidymodels_RFModel_AppleWatch.rds")
-if (file.access(dirname(model_file), 2) == 0) {
-  saveRDS(fitted_rf_model, file = model_file)
-} else {
-  warning("Permission denied: Unable to save the model. Check the model directory permissions.")
-}
+saveRDS(rf_fit, file = model_file)
 
-# Final message indicating completion
+# Stop the cluster after training is complete
+stopCluster(cl)
+registerDoSEQ()  # Return to sequential processing
 print("Model training and prediction process completed successfully!")
