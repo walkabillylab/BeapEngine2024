@@ -23,7 +23,7 @@ services:
       - POSTGRES_PASSWORD=root
       - POSTGRES_USER=root
       - POSTGRES_DB=beapengine
-      - ROLLBAR_ACCESS_TOKEN=123
+      - ROLLBAR_ACCESS_TOKEN=dbfced96b5df42d295242681f0560764
     networks:
       - spring
 

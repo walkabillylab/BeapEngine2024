@@ -1,0 +1,283 @@
+docker-compose : time="2024-11-11T21:39:36-06:00" level=warning 
+msg="C:\\Users\\glenn\\Desktop\\Walkabilly\\BeapEngine2024\\docker-compose.yml: the attribute 
+`version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+At line:1 char:1
++ docker-compose up > server_logs.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (time="2024-11-1...tial confusion":String) [], RemoteExc 
+   eption
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ Container beapengine2024-cache-1  Created
+ Container beapengine2024-postgres-db-1  Created
+ Container backend-dev  Created
+ Container beapengine2024-adminer-1  Created
+Attaching to backend-dev, adminer-1, cache-1, postgres-db-1
+cache-1        | 1:C 12 Nov 2024 03:39:37.503 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+cache-1        | 1:C 12 Nov 2024 03:39:37.503 # Redis version=6.2.16, bits=64, commit=00000000, modified=0, pid=1, just started
+cache-1        | 1:C 12 Nov 2024 03:39:37.503 # Configuration loaded
+cache-1        | 1:M 12 Nov 2024 03:39:37.503 * monotonic clock: POSIX clock_gettime
+cache-1        | 1:M 12 Nov 2024 03:39:37.504 * Running mode=standalone, port=6379.
+cache-1        | 1:M 12 Nov 2024 03:39:37.504 # Server initialized
+cache-1        | 1:M 12 Nov 2024 03:39:37.504 * Loading RDB produced by version 6.2.16
+cache-1        | 1:M 12 Nov 2024 03:39:37.504 * RDB age 120 seconds
+cache-1        | 1:M 12 Nov 2024 03:39:37.504 * RDB memory usage when created 0.77 Mb
+cache-1        | 1:M 12 Nov 2024 03:39:37.504 # Done loading RDB, keys loaded: 0, keys expired: 0.
+cache-1        | 1:M 12 Nov 2024 03:39:37.504 * DB loaded from disk: 0.000 seconds
+cache-1        | 1:M 12 Nov 2024 03:39:37.504 * Ready to accept connections
+postgres-db-1  | 
+postgres-db-1  | PostgreSQL Database directory appears to contain a database; Skipping initialization
+postgres-db-1  | 
+postgres-db-1  | 2024-11-12 03:39:37.559 UTC [1] LOG:  starting PostgreSQL 15.8 on 
+x86_64-pc-linux-musl, compiled by gcc (Alpine 13.2.1_git20240309) 13.2.1 20240309, 64-bit
+postgres-db-1  | 2024-11-12 03:39:37.559 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+postgres-db-1  | 2024-11-12 03:39:37.559 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+postgres-db-1  | 2024-11-12 03:39:37.564 UTC [1] LOG:  listening on Unix socket 
+"/var/run/postgresql/.s.PGSQL.5432"
+postgres-db-1  | 2024-11-12 03:39:37.572 UTC [28] LOG:  database system was shut down at 2024-11-12 
+03:37:37 UTC
+postgres-db-1  | 2024-11-12 03:39:37.579 UTC [1] LOG:  database system is ready to accept connections
+adminer-1      | [Tue Nov 12 03:39:37 2024] PHP 7.4.33 Development Server (http://[::]:8080) started
+backend-dev    | NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED 
+--add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED 
+--add-opens=java.base/java.util.concurrent=ALL-UNNAMED 
+--add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+backend-dev    | 12-Nov-2024 03:39:38.433 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.86
+backend-dev    | 12-Nov-2024 03:39:38.436 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Server built:          Feb 14 2024 08:15:12 UTC
+backend-dev    | 12-Nov-2024 03:39:38.436 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.86.0
+backend-dev    | 12-Nov-2024 03:39:38.436 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+backend-dev    | 12-Nov-2024 03:39:38.436 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log OS Version:            
+5.15.153.1-microsoft-standard-WSL2
+backend-dev    | 12-Nov-2024 03:39:38.437 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+backend-dev    | 12-Nov-2024 03:39:38.437 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /opt/java/openjdk
+backend-dev    | 12-Nov-2024 03:39:38.437 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           11.0.22+7
+backend-dev    | 12-Nov-2024 03:39:38.437 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Eclipse Adoptium
+backend-dev    | 12-Nov-2024 03:39:38.437 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /usr/local/tomcat
+backend-dev    | 12-Nov-2024 03:39:38.438 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /usr/local/tomcat
+backend-dev    | 12-Nov-2024 03:39:38.449 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+--add-opens=java.base/java.lang=ALL-UNNAMED
+backend-dev    | 12-Nov-2024 03:39:38.449 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+--add-opens=java.base/java.io=ALL-UNNAMED
+backend-dev    | 12-Nov-2024 03:39:38.450 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+--add-opens=java.base/java.util=ALL-UNNAMED
+backend-dev    | 12-Nov-2024 03:39:38.450 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+--add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+backend-dev    | 12-Nov-2024 03:39:38.450 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+--add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+backend-dev    | 12-Nov-2024 03:39:38.450 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+-Djava.util.logging.config.file=/usr/local/tomcat/conf/logging.properties
+backend-dev    | 12-Nov-2024 03:39:38.450 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+backend-dev    | 12-Nov-2024 03:39:38.450 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+-Djdk.tls.ephemeralDHKeySize=2048
+backend-dev    | 12-Nov-2024 03:39:38.450 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+-Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+backend-dev    | 12-Nov-2024 03:39:38.451 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+-Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+backend-dev    | 12-Nov-2024 03:39:38.451 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+backend-dev    | 12-Nov-2024 03:39:38.451 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+-Dcatalina.base=/usr/local/tomcat
+backend-dev    | 12-Nov-2024 03:39:38.451 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+-Dcatalina.home=/usr/local/tomcat
+backend-dev    | 12-Nov-2024 03:39:38.451 INFO [main] 
+org.apache.catalina.startup.VersionLoggerListener.log Command line argument: 
+-Djava.io.tmpdir=/usr/local/tomcat/temp
+backend-dev    | 12-Nov-2024 03:39:38.455 INFO [main] 
+org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library 
+[1.3.0] using APR version [1.7.0].
+backend-dev    | 12-Nov-2024 03:39:38.455 INFO [main] 
+org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile 
+[true], accept filters [false], random [true], UDS [true].
+backend-dev    | 12-Nov-2024 03:39:38.456 INFO [main] 
+org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR/OpenSSL configuration: 
+useAprConnector [false], useOpenSSL [true]
+backend-dev    | 12-Nov-2024 03:39:38.460 INFO [main] 
+org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized 
+[OpenSSL 3.0.2 15 Mar 2022]
+backend-dev    | 12-Nov-2024 03:39:38.726 INFO [main] org.apache.coyote.AbstractProtocol.init 
+Initializing ProtocolHandler ["http-nio-8080"]
+backend-dev    | 12-Nov-2024 03:39:38.748 INFO [main] org.apache.catalina.startup.Catalina.load 
+Server initialization in [475] milliseconds
+backend-dev    | 12-Nov-2024 03:39:38.796 INFO [main] 
+org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+backend-dev    | 12-Nov-2024 03:39:38.796 INFO [main] 
+org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.86]
+backend-dev    | 12-Nov-2024 03:39:38.808 INFO [main] 
+org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive 
+[/usr/local/tomcat/webapps/ROOT.war]
+backend-dev    | 12-Nov-2024 03:39:40.069 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars 
+At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger 
+for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs 
+during scanning can improve startup time and JSP compilation time.
+backend-dev    | *********post initializaiton
+backend-dev    | 2024-11-12 03:39:40 INFO  ContextLoader:304 - Root WebApplicationContext: initialization started
+backend-dev    | 2024-11-12 03:39:40 INFO  AnnotationConfigWebApplicationContext:582 - Refreshing Root WebApplicationContext: startup date [Tue Nov 12 03:39:40 UTC 2024]; root of context hierarchy
+backend-dev    | 2024-11-12 03:39:40 INFO  AnnotationConfigWebApplicationContext:207 - Registering annotated classes: [class com.beaplab.BeaplabEngine.config.AppConfig,class com.beaplab.BeaplabEngine.config.RedisConfig]
+backend-dev    | 2024-11-12 03:39:40 INFO  DefaultListableBeanFactory:828 - Overriding bean definition for bean 'sessionRedisTemplate' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration; factoryMethodName=sessionRedisTemplate; initMethodName=null; destroyMethodName=(inferred); defined in org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=redisConfig; factoryMethodName=sessionRedisTemplate; initMethodName=null; destroyMethodName=(inferred); defined in com.beaplab.BeaplabEngine.config.RedisConfig]
+backend-dev    | 2024-11-12 03:39:40 INFO  DefaultListableBeanFactory:828 - Overriding bean definition for bean 'sessionRepository' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration; factoryMethodName=sessionRepository; initMethodName=null; destroyMethodName=(inferred); defined in org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=redisConfig; factoryMethodName=sessionRepository; initMethodName=null; destroyMethodName=(inferred); defined in com.beaplab.BeaplabEngine.config.RedisConfig]
+backend-dev    | 2024-11-12 03:39:41 INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker:325 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$f0e8af5d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+backend-dev    | 2024-11-12 03:39:41 INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker:325 - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$89967797] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+backend-dev    | 2024-11-12 03:39:41 INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker:325 - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+backend-dev    | 2024-11-12 03:39:41 INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker:325 - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@2d288c47' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+backend-dev    | 2024-11-12 03:39:41 INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker:325 - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$ae6b1a49] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+backend-dev    | 2024-11-12 03:39:41 INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker:325 - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+backend-dev    | 2024-11-12 03:39:41 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+backend-dev    | 2024-11-12 03:39:41 INFO  Version:54 - HHH000412: Hibernate Core {4.3.10.Final}
+backend-dev    | 2024-11-12 03:39:41 INFO  Environment:239 - HHH000206: hibernate.properties not found
+backend-dev    | 2024-11-12 03:39:41 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+backend-dev    | 2024-11-12 03:39:41 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL82Dialect
+backend-dev    | 2024-11-12 03:39:41 INFO  LobCreatorBuilder:123 - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+backend-dev    | 2024-11-12 03:39:42 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+backend-dev    | 2024-11-12 03:39:42 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+backend-dev    | 2024-11-12 03:39:42 INFO  SchemaUpdate:207 - HHH000228: Running hbm2ddl schema update
+backend-dev    | 2024-11-12 03:39:42 INFO  SchemaUpdate:218 - HHH000102: Fetching database metadata
+backend-dev    | 2024-11-12 03:39:42 INFO  SchemaUpdate:230 - HHH000396: Updating schema
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:65 - HHH000261: Table found: public.tbl_access_group
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:66 - HHH000037: Columns: [access_group_name, description, last_modified_date, id, created_date]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:69 - HHH000126: Indexes: [tbl_access_group_pkey]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:65 - HHH000261: Table found: public.tbl_incorrect_logins
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:66 - HHH000037: Columns: [incorrectattempts, user_id, lockeddate, id, locked]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:68 - HHH000108: Foreign keys: [fk_i9emajdyooyxlmdaicabr41wb]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:69 - HHH000126: Indexes: [tbl_incorrect_logins_pkey]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:65 - HHH000261: Table found: public.tbl_login_user
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:66 - HHH000037: Columns: [date, user_id, password_token, id, locked]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:68 - HHH000108: Foreign keys: [fk_pb2qbts4dc4p1af27rnn7ep20]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:69 - HHH000126: Indexes: [tbl_login_user_pkey]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:65 - HHH000261: Table found: public.tbl_predicted_data
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:66 - HHH000037: Columns: [predictiontype, datetime, data, id]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:69 - HHH000126: Indexes: [tbl_predicted_data_pkey]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:65 - HHH000261: Table found: public.tbl_processed_data
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:66 - HHH000037: Columns: [datetime, data, id]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:69 - HHH000126: Indexes: [tbl_processed_data_pkey]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:65 - HHH000261: Table found: public.tbl_processed_data_tbl_predicted_data
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:66 - HHH000037: Columns: [predicteddataids_id, tbl_processed_data_id]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:68 - HHH000108: Foreign keys: [fk_sa73d5ss7h2lojnhqd3ggdvsg, fk_mgq92albwlcf0aijckdsl69hv]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:69 - HHH000126: Indexes: [uk_sa73d5ss7h2lojnhqd3ggdvsg, tbl_processed_data_tbl_predicted_data_pkey]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:65 - HHH000261: Table found: public.tbl_raw_data
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:66 - HHH000037: Columns: [datetime, data, year, id, processed_data_id, type]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:69 - HHH000126: Indexes: [tbl_raw_data_pkey]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:65 - HHH000261: Table found: public.tbl_role
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:66 - HHH000037: Columns: [role_name, description, id]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:69 - HHH000126: Indexes: [tbl_role_pkey]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:65 - HHH000261: Table found: public.tbl_user
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:66 - HHH000037: Columns: [password, last_name, id, first_name, username]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:68 - HHH000108: Foreign keys: []
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:69 - HHH000126: Indexes: [tbl_user_pkey]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:65 - HHH000261: Table found: public.tbl_user_tbl_access_group
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:66 - HHH000037: Columns: [accessgroupids_id, tbl_user_id]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:68 - HHH000108: Foreign keys: [fk_gafrg3m3c615etla3ll182w0p, fk_5j7c1y9jud045mewx4nwjahel]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:69 - HHH000126: Indexes: [tbl_user_tbl_access_group_pkey]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:65 - HHH000261: Table found: public.tbl_user_tbl_raw_data
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:66 - HHH000037: Columns: [tbl_user_id, rawdataids_id]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:68 - HHH000108: Foreign keys: [fk_pkrw5guofvq85akbwj7fh0ypu, fk_gx85yqq1hjw0fjn883y0n604x]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:69 - HHH000126: Indexes: [uk_gx85yqq1hjw0fjn883y0n604x, tbl_user_tbl_raw_data_pkey]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:65 - HHH000261: Table found: public.tbl_user_tbl_role
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:66 - HHH000037: Columns: [roleids_id, tbl_user_id]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:68 - HHH000108: Foreign keys: [fk_p7216v4ow303f0limxis9yyu4, fk_djc0wico031yvuj8rie3l2g5v]
+backend-dev    | 2024-11-12 03:39:42 INFO  TableMetadata:69 - HHH000126: Indexes: [tbl_user_tbl_role_pkey]
+postgres-db-1  | 2024-11-12 03:39:42.418 UTC [33] ERROR:  constraint "uk_gafrg3m3c615etla3ll182w0p" 
+of relation "tbl_user_tbl_access_group" does not exist
+postgres-db-1  | 2024-11-12 03:39:42.418 UTC [33] STATEMENT:  alter table tbl_user_tbl_access_group 
+drop constraint UK_gafrg3m3c615etla3ll182w0p
+postgres-db-1  | 2024-11-12 03:39:42.419 UTC [33] ERROR:  relation "uk_gafrg3m3c615etla3ll182w0p" 
+already exists
+postgres-db-1  | 2024-11-12 03:39:42.419 UTC [33] STATEMENT:  alter table tbl_user_tbl_access_group 
+add constraint UK_gafrg3m3c615etla3ll182w0p  unique (accessGroupIDs_id)
+backend-dev    | 2024-11-12 03:39:42 INFO  SchemaUpdate:267 - HHH000232: Schema update complete
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/accessgroup/{id}],methods=[GET],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.AccessGroupDto> com.beaplab.BeaplabEngine.controller.AccessGroupController.get(java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/accessgroup],methods=[PUT],consumes=[application/json],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.AccessGroupDto> com.beaplab.BeaplabEngine.controller.AccessGroupController.update(com.beaplab.BeaplabEngine.metadata.AccessGroupDto)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/accessgroup/{id}],methods=[DELETE],consumes=[application/json],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.AccessGroupDto> com.beaplab.BeaplabEngine.controller.AccessGroupController.delete(java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/accessgroup],methods=[GET],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<java.util.List<com.beaplab.BeaplabEngine.metadata.AccessGroupDto>> com.beaplab.BeaplabEngine.controller.AccessGroupController.list()
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/accessgroup],methods=[POST],consumes=[application/json],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.AccessGroupDto> com.beaplab.BeaplabEngine.controller.AccessGroupController.save(com.beaplab.BeaplabEngine.metadata.AccessGroupDto)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.beaplab.BeaplabEngine.controller.HomeController.handleRequest() throws java.lang.Exception
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/checkauth],methods=[GET]}" onto public org.springframework.http.ResponseEntity<java.lang.String> com.beaplab.BeaplabEngine.controller.LoginUserController.checkAuth(javax.servlet.http.HttpServletRequest)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/loginuser/{id}],methods=[GET],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.LoginUserDto> com.beaplab.BeaplabEngine.controller.LoginUserController.get(java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/loginuser],methods=[PUT],consumes=[application/json],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.LoginUserDto> com.beaplab.BeaplabEngine.controller.LoginUserController.update(com.beaplab.BeaplabEngine.metadata.LoginUserDto)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/loginuser/{id}],methods=[DELETE],consumes=[application/json],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.LoginUserDto> com.beaplab.BeaplabEngine.controller.LoginUserController.delete(java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/loginuser],methods=[GET],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<java.util.List<com.beaplab.BeaplabEngine.metadata.LoginUserDto>> com.beaplab.BeaplabEngine.controller.LoginUserController.list()
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/loginuser],methods=[POST],consumes=[application/json],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.LoginUserDto> com.beaplab.BeaplabEngine.controller.LoginUserController.save(com.beaplab.BeaplabEngine.metadata.LoginUserDto)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/logoutuser],methods=[GET]}" onto public org.springframework.http.ResponseEntity<org.json.simple.JSONObject> com.beaplab.BeaplabEngine.controller.LoginUserController.logout(javax.servlet.http.HttpServletRequest)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/loginuser],methods=[POST]}" onto public org.springframework.http.ResponseEntity<org.json.simple.JSONObject> com.beaplab.BeaplabEngine.controller.LoginUserController.login(javax.servlet.http.HttpServletRequest,java.lang.String,java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/login],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.beaplab.BeaplabEngine.controller.LoginUserController.getLoginView() throws java.lang.Exception
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/role/{id}],methods=[GET],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.RoleDto> com.beaplab.BeaplabEngine.controller.RoleController.get(java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/role],methods=[PUT],consumes=[application/json],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.RoleDto> com.beaplab.BeaplabEngine.controller.RoleController.update(com.beaplab.BeaplabEngine.metadata.RoleDto)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/role/{id}],methods=[DELETE],consumes=[application/json],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.RoleDto> com.beaplab.BeaplabEngine.controller.RoleController.delete(java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/role],methods=[GET],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<java.util.List<com.beaplab.BeaplabEngine.metadata.RoleDto>> com.beaplab.BeaplabEngine.controller.RoleController.list()
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/role],methods=[POST],consumes=[application/json],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.RoleDto> com.beaplab.BeaplabEngine.controller.RoleController.save(com.beaplab.BeaplabEngine.metadata.RoleDto)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/user/{id}],methods=[GET],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.UserDto> com.beaplab.BeaplabEngine.controller.UserController.get(java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/user],methods=[PUT],consumes=[application/json],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.UserDto> com.beaplab.BeaplabEngine.controller.UserController.update(com.beaplab.BeaplabEngine.metadata.UserDto)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/user/{id}],methods=[DELETE],consumes=[application/json],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.UserDto> com.beaplab.BeaplabEngine.controller.UserController.delete(java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/user],methods=[GET],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<java.util.List<com.beaplab.BeaplabEngine.metadata.UserDto>> com.beaplab.BeaplabEngine.controller.UserController.list()
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/user],methods=[POST]}" onto public org.springframework.http.ResponseEntity<org.json.simple.JSONObject> com.beaplab.BeaplabEngine.controller.UserController.save(com.beaplab.BeaplabEngine.metadata.UserDto)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/user],methods=[GET],produces=[application/json]}" onto public org.springframework.http.ResponseEntity<org.json.simple.JSONObject> com.beaplab.BeaplabEngine.controller.UserController.getUsername(javax.servlet.http.HttpServletRequest)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/password],methods=[POST]}" onto public org.springframework.http.ResponseEntity<com.beaplab.BeaplabEngine.metadata.UserDto> com.beaplab.BeaplabEngine.controller.UserController.updatePassword(javax.servlet.http.HttpServletRequest,com.beaplab.BeaplabEngine.metadata.UpdatePasswordObject)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/delete-Profile],methods=[DELETE]}" onto public org.springframework.http.ResponseEntity<org.json.simple.JSONObject> com.beaplab.BeaplabEngine.controller.UserController.deleteProfile(javax.servlet.http.HttpServletRequest)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/delete-User-Data],methods=[DELETE]}" onto public org.springframework.http.ResponseEntity<org.json.simple.JSONObject> com.beaplab.BeaplabEngine.controller.UserController.deleteUserData(javax.servlet.http.HttpServletRequest)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/{watchType}/list/{type}],methods=[GET]}" onto public org.springframework.http.ResponseEntity<org.json.simple.JSONObject> com.beaplab.BeaplabEngine.controller.WatchController.list(javax.servlet.http.HttpServletRequest,java.lang.String,java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/{watchType}/upload],methods=[POST]}" onto public org.springframework.http.ResponseEntity<org.json.simple.JSONObject> com.beaplab.BeaplabEngine.controller.WatchController.upload(java.lang.String,org.springframework.web.multipart.MultipartHttpServletRequest)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/{watchType}/uploadview],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.beaplab.BeaplabEngine.controller.WatchController.getUploadView(java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/{watchType}/process/{id}],methods=[GET]}" onto public org.springframework.http.ResponseEntity<org.json.simple.JSONObject> com.beaplab.BeaplabEngine.controller.WatchController.processFiles(java.lang.String,java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/{watchType}/predict/{id}/{predictionmodel}],methods=[GET]}" onto public org.springframework.http.ResponseEntity<org.json.simple.JSONObject> com.beaplab.BeaplabEngine.controller.WatchController.predictWatch(java.lang.String,java.lang.String,java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/rest/beapengine/{watchType}/download_file/{id}/{type}],methods=[GET]}" onto public org.springframework.http.ResponseEntity<org.json.simple.JSONObject> com.beaplab.BeaplabEngine.controller.WatchController.downloadFile(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String,java.lang.String,java.lang.String)
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/swagger-resources/configuration/ui]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/swagger-resources/configuration/security]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/swagger-resources]}" onto public org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+backend-dev    | 2024-11-12 03:39:43 INFO  SimpleUrlHandlerMapping:362 - Mapped URL path [/swagger-ui.html] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+backend-dev    | 2024-11-12 03:39:43 INFO  SimpleUrlHandlerMapping:362 - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+backend-dev    | 2024-11-12 03:39:43 INFO  SimpleUrlHandlerMapping:362 - Mapped URL path [/resources/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+backend-dev    | 2024-11-12 03:39:43 INFO  RequestMappingHandlerAdapter:534 - Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Tue Nov 12 03:39:40 UTC 2024]; root of context hierarchy
+backend-dev    | 2024-11-12 03:39:43 INFO  ExceptionHandlerExceptionResolver:273 - Detected @ExceptionHandler methods in globalExceptionHandler
+backend-dev    | 2024-11-12 03:39:43 INFO  PropertySourcedRequestMappingHandlerMapping:69 - Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+backend-dev    | 2024-11-12 03:39:43 INFO  HibernateTransactionManager:360 - Using DataSource [org.apache.commons.dbcp2.BasicDataSource@476bdad6] of Hibernate SessionFactory for HibernateTransactionManager
+backend-dev    | 2024-11-12 03:39:44 INFO  DefaultLifecycleProcessor:343 - Starting beans in phase 2147483647
+backend-dev    | 2024-11-12 03:39:44 INFO  DocumentationPluginsBootstrapper:160 - Context refreshed
+backend-dev    | 2024-11-12 03:39:44 INFO  DocumentationPluginsBootstrapper:163 - Found 1 custom documentation plugin(s)
+backend-dev    | 2024-11-12 03:39:44 INFO  ApiListingReferenceScanner:41 - Scanning for api listing references
+backend-dev    | 2024-11-12 03:39:44 INFO  CachingOperationNameGenerator:40 - Generating unique operation named: listUsingGET_1
+backend-dev    | 2024-11-12 03:39:44 INFO  ScheduledAnnotationBeanPostProcessor:260 - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+backend-dev    | 2024-11-12 03:39:44 INFO  ContextLoader:344 - Root WebApplicationContext: initialization completed in 4417 ms
+backend-dev    | 2024-11-12 03:39:44 INFO  DispatcherServlet:489 - FrameworkServlet 'SpringDispatcher': initialization started
+backend-dev    | 2024-11-12 03:39:44 INFO  DispatcherServlet:508 - FrameworkServlet 'SpringDispatcher': initialization completed in 23 ms
+backend-dev    | 12-Nov-2024 03:39:44.693 INFO [main] 
+org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive 
+[/usr/local/tomcat/webapps/ROOT.war] has finished in [5,884] ms
+backend-dev    | 12-Nov-2024 03:39:44.695 INFO [main] 
+org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory 
+[/usr/local/tomcat/webapps/ml-service]
+backend-dev    | 12-Nov-2024 03:39:44.731 INFO [main] 
+org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory 
+[/usr/local/tomcat/webapps/ml-service] has finished in [36] ms
+backend-dev    | 12-Nov-2024 03:39:44.739 INFO [main] org.apache.coyote.AbstractProtocol.start 
+Starting ProtocolHandler ["http-nio-8080"]
+backend-dev    | 12-Nov-2024 03:39:44.749 INFO [main] org.apache.catalina.startup.Catalina.start 
+Server startup in [6000] milliseconds
+Gracefully stopping... (press Ctrl+C again to force)
